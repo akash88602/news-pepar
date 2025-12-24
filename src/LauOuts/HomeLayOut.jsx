@@ -9,17 +9,17 @@ import Footer from '../components/Footer'
 
 export default function HomeLayOut() {
   return (
-    <div className="overflow-x-hidden"> 
+    <div className=""> 
 
       <Header />
 
  
-      <section className="w-11/12 mx-auto my-3">
+      <section className="w-full px-4 my-3"> 
         <LatestNews />
       </section>
 
   
-      <section className="w-11/12 mx-auto my-3">
+      <section className="w-full px-4 my-3  ">
         <Navber />
       </section>
 
@@ -27,18 +27,18 @@ export default function HomeLayOut() {
       <main className="w-full px-4 md:px-6 my-3 gap-5 grid grid-cols-1 md:grid-cols-12">
         
       
-        <section className="w-full md:col-span-3 mb-3 md:mb-0">
+        <aside className="w-full md:col-span-3 mb-3 md:mb-0 sticky top-0 h-fit">
           <LeftAside />
-        </section>
+        </aside>
 
         <section className="main md:col-span-6 h-[calc(130vh)] md:h-[1650px] overflow-y-auto">
           <Outlet />
         </section>
 
       
-        <section className="w-full md:col-span-3 mb-3 md:mb-0">
+        <aside className="w-full md:col-span-3 mb-3 md:mb-0  sticky top-0 h-fit">
           <RigthAside />
-        </section>
+        </aside>
       </main>
 
     

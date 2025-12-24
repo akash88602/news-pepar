@@ -14,14 +14,14 @@ export default function Navbar() {
   }, []);
   return (
     <div>
-      <div className="navbar bg-base-100 px-4">
+      <div className="navbar bg-base-100   ">
 
         <div className="navbar-start">
           <div className="dropdown">
-            <div tabIndex={0} className="btn btn-ghost lg:hidden">
+            <div tabIndex={0} className="btn btn-ghost lg:hidden  text-start  ">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                className="h-5 w-5"
+                className="h-10  "
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
@@ -40,7 +40,7 @@ export default function Navbar() {
                   <NavLink
                     to={`/category/${category.id}`}
                     className={({ isActive }) =>
-                      `btn bg-base-100 border-0 text-accent font-semibold hover:bg-base-200 w-full text-left ${isActive ? 'bg-orange-200' : ''}`
+                      `btn bg-base-100 border-0 text-accent font-semibold hover:bg-base-200 w-full text-left ${isActive ? 'bg-base-200' : ''}`
                     }
                   >
                     {category.name}
@@ -50,7 +50,10 @@ export default function Navbar() {
             </ul>
 
           </div>
-          <a className="btn btn-ghost text-xl">daisyUI</a>
+          <a className="btn btn-ghost text-xl w-full justify-start">
+            daisyUI  asfpk,gfk
+          </a>
+
         </div>
 
 
@@ -69,10 +72,24 @@ export default function Navbar() {
         </div>
 
 
-        <div className="navbar-end flex gap-5">
-          <img src={use} alt="" />
-          <NavLink className="btn btn-primary px-10">Login</NavLink>
+        <div className="navbar-end flex gap-5 items-center">
+          <img
+            src={use}
+            alt="user"
+            className="hidden md:block w-10 h-10 rounded-full"
+          />
+          {/* {user && (
+            <img
+              src={use}
+              className="hidden md:block w-10 h-10 rounded-full"
+            />
+          )} */}
+
+          <NavLink to='/auth/login' className="btn btn-primary px-10">
+            Login
+          </NavLink>
         </div>
+
       </div>
     </div>
   );
