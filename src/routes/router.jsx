@@ -5,49 +5,58 @@ import CatetoryNaws from "../pages/CatetoryNaws";
 import Login from '../pages/Login';
 import AuthLoyout from '../LauOuts/AuthLoyout';
 import Register from '../pages/Register';
+import NewsDetails from '../pages/NewsDetails';
 
 
 export const router = createBrowserRouter(
     [
         {
-            path:'/',
+            path: '/',
             element: <HomeLayOut></HomeLayOut>,
-            children : [
+            children: [
                 {
-                 path:'',
-                 element:<Home></Home>,
+                    path: '',
+                    element: <Home></Home>,
                 },
                 {
-                    path:'category/:id',
-                    element:<CatetoryNaws></CatetoryNaws>,
-                    loader:()=>fetch('/news.json')
-                }
+                    path: 'category/:id',
+                    element: <CatetoryNaws></CatetoryNaws>,
+                    loader: () => fetch('/news.json')
+                },
+             
             ]
-            
+
         },
-         {
-            path:'/auth',
+           {
+                    path: 'news-details/:id',
+                    element: <NewsDetails></NewsDetails>,
+                    loader: () => fetch('/news.json')
+
+
+                },
+        {
+            path: '/auth',
             element: <AuthLoyout></AuthLoyout>,
-            children :[
+            children: [
                 {
-                    path:'/auth/login',
-                    element:<Login></Login>
+                    path: '/auth/login',
+                    element: <Login></Login>
                 },
                 {
-                    path:'/auth/register',
-                    element:<Register></Register>,
+                    path: '/auth/register',
+                    element: <Register></Register>,
                 }
             ]
         },
-         {
-            path:'/news',
+        {
+            path: '/news',
             element: <h2>news layouth</h2>
         },
-         {
-            path:'/*',
+        {
+            path: '/*',
             element: <Error></Error>
         },
-         
+
 
     ]
 )

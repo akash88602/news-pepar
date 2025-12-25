@@ -1,12 +1,23 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { NavLink } from 'react-router-dom';
+import userImg from '../assets/user.png';
 
 
-import use from '../assets/user.png'
+
+import { AuthContext } from '../provider/AuthProvider';
 export default function Navbar() {
+  const { user, logOut } = useContext(AuthContext)
   const [categories, setCategories] = useState([]);
 
+ const handleLogOut=()=>{
+   logOut().then(()=>{
+    alert('You Logged out succcs')
+   })
+   .catch ((error)=>{
+     alert(error.message);
+   })
+ }
   useEffect(() => {
     fetch('/categories.json')
       .then(res => res.json())
@@ -50,9 +61,16 @@ export default function Navbar() {
             </ul>
 
           </div>
-          <a className="btn btn-ghost text-xl w-full justify-start">
-            daisyUI  asfpk,gfk
-          </a>
+          {/* <a className="btn btn-ghost text-xl  md:w-full justify-start  ">
+            {user && user.email}
+          </a> */}
+          <div className="btn btn-ghost flex flex-col items-start leading-tight">
+            <span className="text-xs sm:text-xs md:text-base font-semibold">
+              {user?.displayName}
+            </span>
+          </div>
+
+
 
         </div>
 
@@ -73,21 +91,23 @@ export default function Navbar() {
 
 
         <div className="navbar-end flex gap-5 items-center">
-          <img
-            src={use}
-            alt="user"
-            className="hidden md:block w-10 h-10 rounded-full"
-          />
-          {/* {user && (
+
+          {user && (
             <img
-              src={use}
+              src={user.photoURL || userImg} 
+              alt="user"
               className="hidden md:block w-10 h-10 rounded-full"
             />
-          )} */}
+          )}
 
-          <NavLink to='/auth/login' className="btn btn-primary px-10">
-            Login
-          </NavLink>
+
+
+          {user ? (<button onClick={handleLogOut} className='btn btn-primary px-10 '>LogOut</button>)
+            :
+            (<NavLink to='/auth/login' className="btn btn-primary px-10">
+              Login
+            </NavLink>)}
+
         </div>
 
       </div>
