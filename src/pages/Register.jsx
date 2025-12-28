@@ -1,21 +1,27 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AuthContext } from '../provider/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import { updateProfile } from "firebase/auth";
 
 export default function Register() {
+  
   const { createUser, setUser } = useContext(AuthContext);
   const navigate = useNavigate();
-
+  const [nameError,setNameError]=useState('');
   const handleRegister = (e) => {
     e.preventDefault();
-
+     
     const form = e.target;
     const name = form.name.value;
     const photo = form.photo.files[0]; 
     const email = form.email.value;
     const password = form.password.value;
-
+     if(name.length < 5){
+         setNameError('neme should be more theb 5 character')
+         return;
+       }else{
+        setNameError('')
+       }
     createUser(email, password)
       .then((result) => {
         const user = result.user;
@@ -36,7 +42,7 @@ export default function Register() {
       })
      
   };
-
+      
   return (
     <div className="min-h-screen bg-base-200 flex justify-center items-start px-4 pt-10 sm:pt-14 md:pt-20">
       <div className="card bg-base-100 w-full max-w-sm sm:max-w-md md:max-w-lg shadow-2xl">
@@ -47,6 +53,7 @@ export default function Register() {
 
             <div>
               <label className="label font-medium">Your Name</label>
+              {nameError && <p className='text-xs text-error'>{nameError}</p>}
               <input name="name" required type="text" className="input input-bordered w-full" placeholder="Enter your name" />
             </div>
 

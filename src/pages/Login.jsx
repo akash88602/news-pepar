@@ -1,10 +1,12 @@
-import React, { useContext } from 'react';
-import { NavLink, useNavigate } from 'react-router-dom';
+import React, { useContext, useState } from 'react';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../provider/AuthProvider';
 
 export default function Login() {
   const { loginUser } = useContext(AuthContext);
   const navigate = useNavigate();
+  const location =useLocation();
+  const [error,setError]=useState();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -15,11 +17,12 @@ export default function Login() {
 
     loginUser(email, password)
       .then((result) => {
-        console.log(result.user);
-        navigate('/');
+     
+        // console.log(result.user);
+          navigate(`${location.state ? location.state : '/'}`);
       })
       .catch((error) => {
-        alert(error.message);
+        setError(error.message);
       });
   };
 
@@ -55,6 +58,7 @@ export default function Login() {
             <div className="text-start">
               <a className="link link-hover">Forgot password?</a>
             </div>
+            {error && <p className="text-red-400 text-xs">{error}</p>}
 
             <button className="btn btn-neutral w-full mt-4">
               Login
